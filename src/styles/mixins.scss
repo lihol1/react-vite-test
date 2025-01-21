@@ -1,0 +1,59 @@
+// Минимальная ширина страницы
+$minWidth: 320;
+//Ширина полотна (макета)
+$maxWidth: 1920;
+//Ширина ограничивающего контейнера (0 = нет ограничений)
+$maxWidthContainer: 1590;
+// Общий отступ у контейнера, слева + справа
+$containerPadding: 30;
+
+// Тип адаптива:
+// 1 - отзывчивость (у контейнера нет брейк-поинтов)
+// 2 -  по брейк-поинтам (контейнер меняет ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+
+// $maxWidth: 1920;
+// $maxWidthContainer: 1590;
+@mixin adaptiveValue($property, $startSize, $minSize, $type : 1, $widthFrom : $maxWidthContainer, $widthTo : 320) {
+    $addSize: $startSize - $minSize;
+    
+    @if $type==1 {
+        //срабатывает в границах определенных значений (или от ширины контейнера до минимальной ширины)
+        #{$property}: $startSize + px;   
+        @media (min-width: #{$widthTo + px}) and (max-width: #{$widthFrom + px}) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$widthTo + px}) / #{$widthFrom - $widthTo}));
+        }
+        @media (max-width: #{$widthTo + px}) {
+            #{$property}: $minSize + px;
+        } 
+    } @else if $type==2 {
+        //только, если больше контейнера
+        #{$property}: $startSize + px;
+        @media (min-width: #{$maxWidthContainer + px}) {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+        } 
+    } @else {
+        //всегда
+        #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+    }
+}
+
+@function em($value1, $value2 : 16) {
+    $result: calc($value1/$value2) + em;//делим размер паддинга,марджина на размер шрифта
+        @return $result;
+}
+
+@function rem($value) {
+    $result: calc($value/16) + rem;
+    @return $result;
+}
+
+
+$pc: em($containerWidth);//ПК, нойтбуки, некоторые планшеты в горизонтальном положении
+$tablet: 991.98px;//Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98);//Телефоны L
+$mobileSmall: em(479.98);//Телефоны S

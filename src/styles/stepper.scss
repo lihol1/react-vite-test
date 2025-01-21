@@ -1,3 +1,5 @@
+@import './mixins';
+
 
 .MuiStepper-root {
     & .MuiStepLabel-root {
@@ -16,6 +18,7 @@
     & .MuiStepConnector-root{  
         position: relative;              
         width: 150px;
+        // @include adaptiveValue('width', 150, 50);
 
         &.Mui-active{
             & .MuiStepConnector-line{
@@ -26,7 +29,11 @@
             & .MuiStepConnector-line {
                 border-color: #1976d2;     
             }
-        }  
+        } 
+        // @media (max-width: $tablet) {
+        //     width: 50px;
+        // }
+
     }
     & .MuiStepConnector-line {
         position: absolute;                
