@@ -1,0 +1,42 @@
+
+.MuiStepper-root {
+    & .MuiStepLabel-root {
+            flex-direction: column-reverse;
+            width: 180px;                
+        }
+
+    & .MuiStepLabel-labelContainer {
+        margin-bottom: 10px;
+    }            
+    
+    & .MuiStepIcon-root {
+        width: 2em;
+        height: 2em;
+    }
+    & .MuiStepConnector-root{  
+        position: relative;              
+        width: 150px;
+
+        &.Mui-active{
+            & .MuiStepConnector-line{
+                border-color: #1976d2;     
+            }
+        }
+        &.Mui-completed {
+            & .MuiStepConnector-line {
+                border-color: #1976d2;     
+            }
+        }  
+    }
+    & .MuiStepConnector-line {
+        position: absolute;                
+        border-top-width: 2px;
+        width: 200%;
+        top: 15px;
+        transform: translateX(-26%);
+        
+        &.Mui-active {
+            border-color: #1976d2;
+        }
+    }
+}
